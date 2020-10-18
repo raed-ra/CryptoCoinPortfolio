@@ -15,23 +15,22 @@ import { CryptoProvider } from "./utils/GlobalStore";
 
 function App() {
   return (
-    <React.Fragment>
+    // <React.Fragment>
       <Router>
         <Switch>
           <CryptoProvider>
-            <Route exact path={['/Login']} component={Login} />
-            <Route exact path={['/', '/Home']} component={Home} />
-            <Route exact path={['/Register']} component={Register} />
-            <Route exact path={['/Portfolio']} component={Portfolio} />
+            <Route exact path='/Login' component={Login} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='Home' component={Home} />
+            <Route exact path='/Register' component={Register} />
+            <Route exact path='/Portfolio' component={Portfolio} />
             {/* <Route exact path={['/AssetDiagram']} component={AssetDiagram} /> */}
             {/* <Route exact path={['/Game']} component={Game} /> */}
             {/* <Route component={NoMatch} /> */}
           </CryptoProvider>
         </Switch>
       </Router>
-    </React.Fragment>
+    // </React.Fragment>
   );
 }
-
-
 export default App;
