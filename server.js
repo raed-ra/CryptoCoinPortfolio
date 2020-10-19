@@ -49,7 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Define API routes here
-app.use('/api',  routes);
+//app.use('/api',  routes);
 
 app.use(cors());
 
