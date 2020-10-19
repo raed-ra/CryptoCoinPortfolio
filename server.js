@@ -84,7 +84,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // app.use(cookieParser(process.env.SESSION_SECRET));
 
-app.use(cors(corsConfig));
+// app.use(cors(corsConfig));
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
