@@ -67,12 +67,12 @@
 const express = require("express");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-// const cors = require("cors");
-// const corsConfig = require('./config/cors');
-// const passport = require("passport");
+const cors = require("cors");
+const corsConfig = require('./config/cors');
+const passport = require("passport");
 const connectDb = require("./config/config");
-// const MongoStore = require("connect-mongo")(session);
-const routes = require("./routes/router");
+//const MongoStore = require("connect-mongo")(session);
+// const routes = require("./routes/router");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
