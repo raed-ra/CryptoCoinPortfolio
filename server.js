@@ -1,7 +1,6 @@
 const express = require("express");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
 const cors = require("cors");
 const corsConfig = require('./config/cors');
 const passport = require("passport");
@@ -11,7 +10,11 @@ const routes = require("./routes/router");
 dotenv.config({ path: ".env" });
 const path = require("path");
 const PORT = process.env.PORT || 3001;
+const compression = require('compression')
 const app = express();
+
+//use compression 
+app.use(compression({}))
 
 connectDb();
 
@@ -48,7 +51,7 @@ app.use(passport.session());
 // Define API routes here
 app.use('/api',  routes);
 
-//app.use(cors(corsConfig));
+app.use(cors());
 
 // Send every other request to the React app
 // Define any API routes before this runs
