@@ -51,7 +51,7 @@ app.use(passport.session());
 // Define API routes here
 app.use('/api',  routes);
 
-app.use(cors());
+app.use(cors(corsConfig));
 
 // Send every other request to the React app
 // Define any API routes before this runs
