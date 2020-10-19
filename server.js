@@ -69,7 +69,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
-//const corsConfig = require('./config/cors');
+const corsConfig = require('./config/cors');
 const passport = require("passport");
 const connectDb = require("./config/config");
 const MongoStore = require("connect-mongo")(session);
@@ -83,7 +83,7 @@ connectDb();
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json(corsConfig));
 app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(cors());
@@ -111,7 +111,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // Define API routes here
+// Define API routes here
 app.use('/api',  routes);
 
 // Send every other request to the React app
