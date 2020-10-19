@@ -19,24 +19,7 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "bcrypt": "^5.0.0",
-    "connect-mongo": "^3.2.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.16.3",
-    "express-session": "^1.17.1",
-    "faker": "^4.1.0",
-    "if-env": "^1.0.4",
-    "lodash": "^4.17.19",
-    "moment": "^2.27.0",
-    "mongoose": "^5.9.25",
-    "passport": "^0.4.1",
-    "passport-facebook": "^3.0.0",
-    "passport-local": "^1.0.0",
-    "react-native-elements": "^2.0.4",
-    "socket.io": "^2.3.0",
-    "validator": "^13.1.1"
+    "if-env": "^1.0.4"
   }
 }
