@@ -23,7 +23,8 @@ function HomeTable() {
     const [price, setPrice] = useState({})
     const [variant, setVariant] = useState({})
     const [pageLimit, setPageLimit] = useState(10)
-    
+    let baseURL
+    process.env.NODE_ENV === 'development' ? baseURL = 'http://localhost:3001' : baseURL = ''
     const ccStreamer = useRef()
 
     useEffect(() => {
@@ -34,7 +35,7 @@ function HomeTable() {
 
     const fetchcoin = (page, limit) => {
   
-        axios.get('http://localhost:3001/api/cryptocompare/table?page=' + String(page), {
+        axios.get(baseURL + '/api/cryptocompare/table?page=' + String(page), {
             withCredentials: true,
         })
             .then((response) => {

@@ -8,9 +8,11 @@ import moment from "moment"
 function Sidebar() {
 
     const [news, setNews] = useState([])
+    let baseURL
+    process.env.NODE_ENV === 'development' ? baseURL = 'http://localhost:3001' : baseURL = ''
 
     const fetchnews = () => {
-        axios.get('http://localhost:3001/api/cryptocompare/news', {
+        axios.get( baseURL + '/api/cryptocompare/news', {
             withCredentials: true,
         })
             .then((response) => {

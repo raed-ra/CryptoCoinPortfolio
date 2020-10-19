@@ -13,11 +13,13 @@ function HoldingTable(props) {
 
     // const [modalShow, setModalShow] = useState(false);
     const [holding, setHolding] = useState([])
-
+    let baseURL
+    process.env.NODE_ENV === 'development' ? baseURL = 'http://localhost:3001' : baseURL = ''
 
     const fetchCryptoLogoPrice = async (coin, currency) => {
         try {
-            let response = await axios.get('http://localhost:3001/api/cryptocompare/oneprice?coin=' + String(coin) + '&currency=' + String(currency), {
+
+            let response = await axios.get(baseURL + '/api/cryptocompare/oneprice?coin=' + String(coin) + '&currency=' + String(currency), {
                 withCredentials: true,
             })
             console.log(response)
@@ -37,7 +39,7 @@ function HoldingTable(props) {
 
     const fetchcoinDatabase = async () => {
         try {
-            let response = await axios.get('http://localhost:3001/api/holding', {
+            let response = await axios.get(baseURL + '/api/holding', {
                 withCredentials: true,
             })
             // console.log(response.data.data)
@@ -51,7 +53,7 @@ function HoldingTable(props) {
                 let initialCost = (rawData.holding_quantity_current * rawData.holding_quantity_current).toFixed(2);
                 let totalValue = (rawData.currentPrice * rawData.holding_quantity_current).toFixed(2);
                 let profitLoss = (totalValue - initialCost).toFixed(2);
-                let change = ((profitLoss/initialCost) * 100).toFixed(0);
+                let change = ((profitLoss / initialCost) * 100).toFixed(0);
                 return { ...coin, ...holdingListp2, initialCost, totalValue, profitLoss, change }
             }
 
@@ -72,14 +74,14 @@ function HoldingTable(props) {
 
 
     // call post api to load all the data in page
-    useEffect( () => {
+    useEffect(() => {
         fetchcoinDatabase()
     }, [])
 
     console.log(holding)
     return (
         <>
-            <DashboardTable data={holding} {...props}/>
+            <DashboardTable data={holding} {...props} />
         </>
     );
 }
