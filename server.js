@@ -73,7 +73,7 @@ const cors = require("cors");
 const passport = require("passport");
 const connectDb = require("./config/config");
 const MongoStore = require("connect-mongo")(session);
-// const routes = require("./routes/router");
+const routes = require("./routes/router");
 dotenv.config({ path: ".env" });
 const path = require("path");
 const PORT = process.env.PORT || 3001;
@@ -112,7 +112,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // // Define API routes here
-// app.use('/api',  routes);
+app.use('/api',  routes);
 
 // Send every other request to the React app
 // Define any API routes before this runs
