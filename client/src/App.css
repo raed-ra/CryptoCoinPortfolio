@@ -22,3 +22,5 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
