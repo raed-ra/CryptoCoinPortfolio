@@ -59,12 +59,17 @@ router.post('/register', (req, res, next) => {
           });
       });
   });
+
+
 })
 
 router.post('/login',  (req, res, next) => {
+
+
     // res.json({
     //     data: req.user
     // })
+
     passport.authenticate('local', (err, user, info) => {
         console.log({err});
         if (err) {
@@ -116,18 +121,20 @@ router.get('/logout', (req, res) => {
     });
 });
 
-// Redirect the user to Facebook for authentication.  When complete,
-// Facebook will redirect the user back to the application at
-//     /auth/facebook/callback
-router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-// Facebook will redirect the user to this URL after approval.  Finish the
-// authentication process by attempting to obtain an access token.  If
-// access was granted, the user will be logged in.  Otherwise,
-// authentication has failed.
-router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/portfolio',
-    failureRedirect: '/'
-  }));
+
 
 module.exports = router
+
+// Redirect the user to Facebook for authentication.  When complete,
+// // Facebook will redirect the user back to the application at
+// //     /auth/facebook/callback
+// router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
+// // Facebook will redirect the user to this URL after approval.  Finish the
+// // authentication process by attempting to obtain an access token.  If
+// // access was granted, the user will be logged in.  Otherwise,
+// // authentication has failed.
+// router.get('/auth/facebook/callback',
+//   passport.authenticate('facebook', {
+//     successRedirect: '/portfolio',
+//     failureRedirect: '/'
+//   }));
