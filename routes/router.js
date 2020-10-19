@@ -11,10 +11,10 @@ const router = express.Router()
 
 // to protect the following routes
 router.use(auth);
-
+router.use(crypto);
 router.use(AuthenticatedMiddleware)
 router.use(user);
-router.use(crypto);
+// router.use(crypto);
 router.use(portfolio);
 router.use(transaction)
 //router.use(game)
