@@ -1,5 +1,5 @@
 const express = require('express');
-const auth = require('./api/auth/auth');
+const auth = require('./api/test/test');
 const user = require('./api/userRoutes');
 const crypto = require('./api/cryptoRoutes');
 const portfolio = require('./api/portfolioRoutes');
