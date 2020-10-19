@@ -13,11 +13,13 @@ function Chart(props) {
     const [chartData, setChartData] = useState([])
     const [chartDisplayData, setChartDisplayData] = useState([])
     const index = props.index
+    let baseURL
+    process.env.NODE_ENV === 'development' ? baseURL = 'http://localhost:3001' : baseURL = ''
 
     async function fetchdata() {
         try {
             // console.log(index)
-            const response = await axios.post('http://localhost:3001/api/cryptocompare/chart', { index }, {
+            const response = await axios.post( baseURL + '/api/cryptocompare/chart', { index }, {
                 withCredentials: true,
             })
             // console.log(response.data.Data.Data)
