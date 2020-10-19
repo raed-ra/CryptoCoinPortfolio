@@ -84,7 +84,7 @@ connectDb();
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 // app.use(cors(corsConfig));
 // Serve up static assets (usually on heroku)
