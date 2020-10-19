@@ -19,7 +19,7 @@ function Chart(props) {
     async function fetchdata() {
         try {
             // console.log(index)
-            const response = await axios.post( baseURL + '/api/cryptocompare/chart', { index }, {
+            const response = await axios.post(baseURL + '/api/cryptocompare/chart', { index }, {
                 withCredentials: true,
             })
             // console.log(response.data.Data.Data)
