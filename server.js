@@ -69,7 +69,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const corsConfig = require('./config/cors');
+//const corsConfig = require('./config/cors');
 const passport = require("passport");
 const connectDb = require("./config/config");
 const MongoStore = require("connect-mongo")(session);
@@ -86,7 +86,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser(process.env.SESSION_SECRET));
 
-app.use(cors(corsConfig));
+app.use(cors());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
