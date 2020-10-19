@@ -77,16 +77,40 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+connectDb();
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser(process.env.SESSION_SECRET));
+
+app.use(cors(corsConfig));
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+app.use(
+  session({
+      resave: true,
+      saveUninitialized: true,
+      secret: process.env.SESSION_SECRET,
+      cookie: {
+          secure: false, // not using https
+          maxAge: 1209600000,
+      }, // two weeks in milliseconds
+      store: new MongoStore({
+          url: process.env.MONGODB_URI,
+          autoReconnect: true,
+      }),
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Define API routes here
+// app.use('/api',  routes);
 
 // Send every other request to the React app
 // Define any API routes before this runs
