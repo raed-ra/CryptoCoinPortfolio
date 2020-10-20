@@ -1,9 +1,9 @@
-import React, { useState, useEffect , useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Col, Row, Container, Form, Button, Jumbotron, Table } from 'react-bootstrap'
 import axios from "axios";
 import Chart from "../../components/Chart"
 import styled from 'styled-components';
-
+import API from './../../utils/API'
 
 const Styles = styled.div`
 .canvas-container {
@@ -14,7 +14,6 @@ const Styles = styled.div`
   }
     `;
 
-   
 
 function HomeTable() {
 
@@ -23,101 +22,69 @@ function HomeTable() {
     const [price, setPrice] = useState({})
     const [variant, setVariant] = useState({})
     const [pageLimit, setPageLimit] = useState(10)
-    let baseURL
-    process.env.NODE_ENV === 'development' ? baseURL = 'http://localhost:3001' : baseURL = ''
+
     const ccStreamer = useRef()
 
-    useEffect(() => {
-        let apiKey = "f6c04b8c1b5d332df2dc000cf67455fc99d7ca2d00cc1d33a85e818756a85988";
-        ccStreamer.current = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=' + apiKey);
-        return () => ccStreamer.current.close()
-    },[])
+    const fetchcoin = async (page, limit) => {
+        try {
+            let response = await API.hometableCryptoData(page, limit)
 
-    const fetchcoin = (page, limit) => {
-  
-        axios.get(baseURL + '/api/cryptocompare/table?page=' + String(page), {
-            withCredentials: true,
-        })
-            .then((response) => {
-                setData(response.data.Data)
+            setData(response.data.Data)
+            let priceInfo = {};
+            response.data.Data.forEach((coin) => {
+                priceInfo[coin.CoinInfo.Name] = parseFloat((coin.DISPLAY.USD.PRICE).slice(1));
 
-                // create the price obj
-                // {
-                //     btc: 0,
-                //     eth: 0,
-                //     btc: 0,
-                // }
-                let priceInfo = {};
-                response.data.Data.forEach((coin) => {
-                    priceInfo[coin.CoinInfo.Name] = parseFloat((coin.DISPLAY.USD.PRICE).slice(1));
-                 
-                })
-                setPrice(priceInfo)
-                console.log('init', priceInfo)
-                return priceInfo
             })
-            .then((priceInfo) => {
-                console.log(Object.keys(priceInfo).map(coin => `2~Coinbase~${coin}~USD`))
-                // this is where you paste your api key
-               
-                    let subRequest = {
-                        "action": "SubAdd",
-                        "subs": Object.keys(priceInfo).map(coin => `2~Coinbase~${coin}~USD`)
-                    };
-                    ccStreamer.current.send(JSON.stringify(subRequest));
-                
+            setPrice(priceInfo)
+            console.log('init', priceInfo)
+            console.log(Object.keys(priceInfo).map(coin => `2~Coinbase~${coin}~USD`))
 
-                ccStreamer.current.onmessage = function onStreamMessage(event) {
-                    console.log({ event })
-                    let message = JSON.parse(event.data);
-                    // console.log(message)
-                    let priceInfo2 = { ...priceInfo }
-                    let newVar
-                    let variant = {}
-                    let newPrice = "NAN"
-                    if (message.price !== "") {
-                        newPrice = message.PRICE
-                        if (priceInfo[message.FROMSYMBOL] !== undefined) {
-                            newVar = priceInfo[message.FROMSYMBOL]
-                        }
-                        variant[message.FROMSYMBOL] = ""
-                        if (newVar > parseFloat(newPrice)) {
-                            variant[message.FROMSYMBOL] = "table-success"
-                        }
-                        if (newVar < parseFloat(newPrice)) {
-                            variant[message.FROMSYMBOL] = "table-danger"
-                        }
+            let subRequest = {
+                "action": "SubAdd",
+                "subs": Object.keys(priceInfo).map(coin => `2~Coinbase~${coin}~USD`)
+            };
+            ccStreamer.current.send(JSON.stringify(subRequest));
+            ccStreamer.current.onmessage = function onStreamMessage(event) {
+                console.log({ event })
+                let message = JSON.parse(event.data);
+                // console.log(message)
+                let priceInfo2 = { ...priceInfo }
+                let newVar
+                let variant = {}
+                let newPrice = "NAN"
+                if (message.price !== "") {
+                    newPrice = message.PRICE
+                    if (priceInfo[message.FROMSYMBOL] !== undefined) {
+                        newVar = priceInfo[message.FROMSYMBOL]
                     }
-
-                    // console.log(message.FROMSYMBOL)
-                    // console.log(priceInfo)
-                    // console.log(newVar)
-                    // console.log(parseFloat(priceInfo[message.FROMSYMBOL]))
-                    // console.log(message.PRICE)
-                    // console.log(parseFloat(message.PRICE))
-                    // console.log(parseFloat(priceInfo2[message.FROMSYMBOL])>parseFloat(message.PRICE))
-
-                    priceInfo2[message.FROMSYMBOL] = newPrice
-                    setPrice(priceInfo2)
-                    setVariant(variant)
-                    // console.log(priceInfo2)
-                    //console.log("Received from Cryptocompare: ", message)
-                    
+                    variant[message.FROMSYMBOL] = ""
+                    if (newVar > parseFloat(newPrice)) {
+                        variant[message.FROMSYMBOL] = "table-success"
+                    }
+                    if (newVar < parseFloat(newPrice)) {
+                        variant[message.FROMSYMBOL] = "table-danger"
+                    }
                 }
-            })
-            .catch((err) => {
-                if (err.response.status === 401) {
-                }
-            })
-            return ccStreamer
+                priceInfo2[message.FROMSYMBOL] = newPrice
+                setPrice(priceInfo2)
+                setVariant(variant)
+            }
+        } catch (err) {
+            if (err.response.status === 401) {
+            }
+        }
+        // return ccStreamer
     }
     // call post api to load all the data in page
     useEffect(() => {
         fetchcoin(page, pageLimit)
     }, [page])
 
-
-
+    useEffect(() => {
+        let apiKey = "f6c04b8c1b5d332df2dc000cf67455fc99d7ca2d00cc1d33a85e818756a85988";
+        ccStreamer.current = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=' + apiKey);
+        return () => ccStreamer.current.close()
+    }, [])
 
     const onClickForward = () => {
         // click on next page

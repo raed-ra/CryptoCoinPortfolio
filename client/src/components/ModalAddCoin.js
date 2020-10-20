@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import LoaderButton from "./LoaderButton";
-import { useHistory } from "react-router-dom";
-import axios from 'axios'
+import API from './../utils/API'
 
 
 function ModalAddCoin(props) {
@@ -28,9 +26,7 @@ function ModalAddCoin(props) {
     setIsLoading(true);
  
     try {
-      const response = await axios.post('http://localhost:3001/api/transactions/addcoin', payload, {
-        withCredentials: true,
-      })
+      let response = await API.componentAddModal(payload)
       console.log("Posted transaction:" + response)
       props.submitted()
     } catch (e) {
@@ -47,7 +43,7 @@ function ModalAddCoin(props) {
       </Modal.Header>
       <Modal.Body className="show-grid">
         <Container>
-          <Form onSubmit={console.log(startDate)}>
+          <Form onSubmit={handleSubmit}>
             <Form.Row>
               <Form.Group as={Col} controlId="formGridCoin">
                 <Form.Label>Coin</Form.Label>
@@ -101,11 +97,11 @@ function ModalAddCoin(props) {
             </Form.Row>
 
             <Button
-              // block
+              block
               type="submit"
-              // bsSize="large"
-              // isLoading={isLoading}
-              // disabled={!validateForm()}
+              bsSize="large"
+              isLoading={isLoading}
+              disabled={!validateForm()}
             >
               ADD TO PORTFOLIO
         </Button>

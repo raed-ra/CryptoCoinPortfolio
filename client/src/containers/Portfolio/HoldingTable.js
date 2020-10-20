@@ -1,32 +1,21 @@
-
 import React, { useState, useEffect } from "react";
-
-// import { Button } from 'react-native-elements';
-
-import axios from "axios";
-import ModalEditSellCoin from "../../components/ModalEditSellCoin"
 import DashboardTable from "../../components/DashboardTable.jsx"
-
+import API from './../../utils/API'
 
 
 function HoldingTable(props) {
 
-    // const [modalShow, setModalShow] = useState(false);
     const [holding, setHolding] = useState([])
-    let baseURL
-    process.env.NODE_ENV === 'development' ? baseURL = 'http://localhost:3001' : baseURL = ''
+
 
     const fetchCryptoLogoPrice = async (coin, currency) => {
         try {
-
-            let response = await axios.get(baseURL + '/api/cryptocompare/oneprice?coin=' + String(coin) + '&currency=' + String(currency), {
-                withCredentials: true,
-            })
-            console.log(response)
-            console.log(response.data.RAW[coin][currency].PRICE)
-            console.log(response.data.RAW[coin][currency].IMAGEURL)
+            let response = await API.portfolioHoldingOnePrice(coin,currency)
+            // console.log(response)
+            // console.log(response.data.RAW[coin][currency].PRICE)
+            // console.log(response.data.RAW[coin][currency].IMAGEURL)
             let filteredResponse = { "currentPrice": response.data.RAW[coin][currency].PRICE, "imageURL": response.data.RAW[coin][currency].IMAGEURL }
-            console.log(filteredResponse)
+            // console.log(filteredResponse)
             return filteredResponse
         } catch (err) {
             console.log("there is an error here")
@@ -37,15 +26,12 @@ function HoldingTable(props) {
     }
 
 
-    const fetchcoinDatabase = async () => {
+    const fetchcoinDatabase = async () => { 
         try {
-            let response = await axios.get(baseURL + '/api/holding', {
-                withCredentials: true,
-            })
+            let response = await API.portfolioHoldingsDatabase()
             // console.log(response.data.data)
             let holdingListp1 = response.data.data
-            console.log(holdingListp1)
-
+            // console.log(holdingListp1)
 
             const anAsyncFunction = async (coin) => {
                 let holdingListp2 = await fetchCryptoLogoPrice(coin.coin, coin.currency)

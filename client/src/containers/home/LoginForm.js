@@ -3,13 +3,11 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Col, Row, Container, Form, Button, Jumbotron } from 'react-bootstrap'
 import axios from "axios";
-
+import API from './../../utils/API'
 
 function LoginForm() {
     const history = useHistory();
-
     const [errors, setErrors] = useState([]);
-
     const [payload, setPayload] = useState({});
 
     const handleChange = async (event) => {
@@ -28,34 +26,22 @@ function LoginForm() {
     const onSubmit = async (event) => {
         event.preventDefault();
         // call api to login
-
-        const response = await axios
-            .post(
-                "http://localhost:3001/api/login",
-                {
-                    email: payload.email,
-                    password: payload.password,
-                },
-                {
-                    withCredentials: true
-                }
-            )
-            .then((response) => {
-                history.push("/portfolio");
-            })
-            .catch((err) => {
-                // not authenticated
-                console.log(err.response);
-                if (err.response.data.errors) {
-                    const errorMsg = err.response.data.errors.map(
-                        (err) => err.msg
-                    );
-                    // failed to register
-                    setErrors([...errorMsg]);
-                } else {
-                    setErrors(['Whoops please enter your credentials']);
-                }
-            });
+        try {
+            const response = await API.loginPost(payload)
+            history.push("/portfolio");
+        } catch (err) {
+            // not authenticated
+            console.log(err.response);
+            if (err.response.data.errors) {
+                const errorMsg = err.response.data.errors.map(
+                    (err) => err.msg
+                );
+                // failed to register
+                setErrors([...errorMsg]);
+            } else {
+                setErrors(['Whoops please enter your credentials']);
+            }
+        };
     };
 
     return (
@@ -95,7 +81,7 @@ function LoginForm() {
                                     </Col>
                                     <Col xs={6}></Col>
                                     <Col xs={3}>
-                                        <Button  onClick={() => history.push("/register")} variant="secondary" type="submit">
+                                        <Button onClick={() => history.push("/register")} variant="secondary" type="submit">
                                             Register
                                         </Button>
                                     </Col>

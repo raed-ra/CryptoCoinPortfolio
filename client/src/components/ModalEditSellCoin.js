@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import LoaderButton from "./LoaderButton";
-import { useHistory } from "react-router-dom";
-import axios from 'axios'
-import { initialize } from "passport";
-import m from 'moment';
 import { parseISO } from 'date-fns'
+import API from './../utils/API'
 
 function ModalEditSellCoin(props) {
 
@@ -30,9 +26,7 @@ function ModalEditSellCoin(props) {
     console.log(payload)
     try {
       // console.log(index)
-      const response = await axios.update('http://localhost:3001/api/transactions/addcoin', payload, {
-        withCredentials: true,
-      })
+      let response = await API.componentEditModal(payload)
       console.log("Editted transaction:" + response)
       props.submitted()
     } catch (e) {
@@ -74,7 +68,7 @@ function ModalEditSellCoin(props) {
       let time = parseISO(helperVar.startDate)
       setStartDate(time)
     }
-   }, [props])
+  }, [props])
 
   console.log(props);
   return (

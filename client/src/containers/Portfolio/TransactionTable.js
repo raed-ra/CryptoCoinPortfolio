@@ -1,17 +1,13 @@
 
 import React, { useState, useEffect } from "react";
-
-// import { Button } from 'react-native-elements';
-
 import axios from "axios";
 import ModalEditSellCoin from "../../components/ModalEditSellCoin"
 import DashboardTable from "../../components/DashboardTable.jsx"
-
+import API from './../../utils/API'
 
 
 function PortfolioTable(props) {
 
-    // const [modalShow, setModalShow] = useState(false);
     const [transaction, setTransaction] = useState([])
     const [currentTransaction, setCurrentTransaction] = useState(0)
 
@@ -22,9 +18,7 @@ function PortfolioTable(props) {
 
     const fetchCryptoLogoPrice = async (coin, currency) => {
         try {
-            let response = await axios.get('http://localhost:3001/api/cryptocompare/oneprice?coin=' + String(coin) + '&currency=' + String(currency), {
-                withCredentials: true,
-            })
+             let response = await API.portfolioHoldingOnePrice(coin,currency)
             // console.log(response)
             // console.log(response.data.RAW[coin][currency].PRICE)
             // console.log(response.data.RAW[coin][currency].IMAGEURL)
@@ -42,9 +36,7 @@ function PortfolioTable(props) {
 
     const fetchcoinDatabase = async () => {
         try {
-            let response = await axios.get('http://localhost:3001/api/transactions/addcoin', {
-                withCredentials: true,
-            })
+            let response = await API.portfolioTransactionsDatabase()
             console.log(response.data.data)
             let transactionListp1 = response.data.data
             // console.log(transactionListp1)

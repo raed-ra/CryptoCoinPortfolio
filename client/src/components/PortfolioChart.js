@@ -8,7 +8,7 @@ import 'moment-timezone';
 import ChartHighstock from './ChartHighstock.jsx'
 import { useCryptoContext } from '../utils/GlobalStore'
 import { GET_ITEMS, LOADING } from '../utils/actions'
-import { chart } from "highcharts";
+import API from './../utils/API'
 
 
 function PortfolioChart(props) {
@@ -17,25 +17,9 @@ function PortfolioChart(props) {
     const [timeData, setTimeData] = useState([])
     const [chartDisplayData, setChartDisplayData] = useState([])
 
-    // const [ chosenIndex, setChosenIndex ] = useState();
-
-    // const chooseData = async () => {
-    //     switch (index) {
-    //         case "all":
-    //             console.log(index);
-    //             all_portfolio_data_calcs();
-    //         default:
-    //             return;
-    //     }
-    // }
-
     const fetchCryptoLogoPrice = async (index, currency) => {
         try {
-            console.log(index)
-            const response = await axios.post('http://localhost:3001/api/cryptocompare/chart', { index }, {
-                withCredentials: true,
-            })
-            //console.log(response.data.Data)
+            let response = await API.componentChart(index)
             return response.data.Data
         } catch (err) {
             console.log("there is an error here")
@@ -46,9 +30,7 @@ function PortfolioChart(props) {
     }
     const all_portfolio_data_calcs = async () => {
         try {
-            let response = await axios.get('http://localhost:3001/api/holding', {
-                withCredentials: true,
-            })
+            let response = await API.componentPortfolioChartHolding()
             // console.log(response.data.data)
             let holdingListp1 = response.data.data
             console.log(holdingListp1)

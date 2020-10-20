@@ -1,27 +1,19 @@
 
 import React, { useState, useEffect, Component } from "react";
 import { Col, Row, Container, Form, Button, Jumbotron, Table } from 'react-bootstrap'
-import axios from "axios";
 import { Line } from 'react-chartjs-2';
-import moment from 'react-moment'
 import 'moment-timezone';
-import { truncate } from "fs";
+import API from './../utils/API'
 
 
 function Chart(props) {
 
     const [chartData, setChartData] = useState([])
-    const [chartDisplayData, setChartDisplayData] = useState([])
     const index = props.index
-    let baseURL
-    process.env.NODE_ENV === 'development' ? baseURL = 'http://localhost:3001' : baseURL = ''
 
     async function fetchdata() {
         try {
-            // console.log(index)
-            const response = await axios.post(baseURL + '/api/cryptocompare/chart', { index }, {
-                withCredentials: true,
-            })
+            let response = await API.componentChart(index)
             // console.log(response.data.Data.Data)
             let updated_chart_data = [];
             let updated_chart_label = [];
