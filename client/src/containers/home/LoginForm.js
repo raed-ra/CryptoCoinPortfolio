@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Col, Row, Container, Form, Button, Jumbotron } from 'react-bootstrap'
-import axios from "axios";
 import API from './../../utils/API'
 
 function LoginForm() {
