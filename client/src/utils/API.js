@@ -31,13 +31,13 @@ export default {
         try {
             const url = baseURL + '/api/login'
             console.log(url);
-            return axios.post(url,{
+            return axios.post(url, {
                 email: payload.email,
                 password: payload.password,
             },
-            {
-                withCredentials: true
-            })
+                {
+                    withCredentials: true
+                })
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -48,13 +48,13 @@ export default {
         try {
             const url = baseURL + '/api/login'
             console.log(url);
-            return axios.post(url,{
+            return axios.post(url, {
                 email: payload.email,
                 password: payload.password,
             },
-            {
-                withCredentials: true
-            })
+                {
+                    withCredentials: true
+                })
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -73,7 +73,7 @@ export default {
 
     portfolioHoldingsDatabase: async () => {
         try {
-            const url = baseURL + '/api/holding' 
+            const url = baseURL + '/api/holding'
             return axios.get(url, { withCredentials: true })
         } catch (err) {
             if (err.response.status === 401) {
@@ -83,7 +83,7 @@ export default {
 
     portfolioTransactionsDatabase: async () => {
         try {
-            const url = baseURL + '/api/transactions/addcoin' 
+            const url = baseURL + '/api/transactions/addcoin'
             return axios.get(url, { withCredentials: true })
         } catch (err) {
             if (err.response.status === 401) {
@@ -93,7 +93,7 @@ export default {
 
     componentChart: async (index) => {
         try {
-            const url = baseURL + '/api/cryptocompare/chart' 
+            const url = baseURL + '/api/cryptocompare/chart'
             return axios.post(url, { index }, {
                 withCredentials: true,
             })
@@ -105,7 +105,7 @@ export default {
 
     componentAddModal: async (payload) => {
         try {
-            const url = baseURL + '/api/transactions/addcoin' 
+            const url = baseURL + '/api/transactions/addcoin'
             return axios.post(url, payload, {
                 withCredentials: true,
             })
@@ -117,7 +117,7 @@ export default {
 
     componentEditModal: async (payload) => {
         try {
-            const url = baseURL + '/api/transactions/editcoin' 
+            const url = baseURL + '/api/transactions/editcoin'
             return axios.update(url, payload, {
                 withCredentials: true,
             })
@@ -129,7 +129,7 @@ export default {
 
     componentPortfolioChartHolding: async () => {
         try {
-            const url = baseURL + '/api/holding' 
+            const url = baseURL + '/api/holding'
             return axios.get(url, {
                 withCredentials: true,
             })
@@ -138,5 +138,6 @@ export default {
             }
         }
     },
+
 
 }

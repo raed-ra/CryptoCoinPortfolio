@@ -12,8 +12,10 @@ import TransactionTable from "../../../containers/Portfolio/TransactionTable"
 import HoldingTable from "../../../containers/Portfolio/HoldingTable"
 import { useCryptoContext } from '../../../utils/GlobalStore'
 
+
 import axios from "axios";
 import { stringify } from "querystring";
+import API from "../../../utils/API";
 
 const Dash = props => {
     const [modalShow, setModalShow] = useState(false);
@@ -25,6 +27,7 @@ const Dash = props => {
     const [acquisitionCost, setAcquisitionCost] = useState()
     const [portfolioChange, setPortfolioChange] = useState()
     const {state, dispatch} = useCryptoContext();
+    
 
     const tableOpts = [
         { name: 'Transaction', value: 'transaction' },
@@ -44,9 +47,7 @@ const Dash = props => {
 
     const getHoldings = async () => {
         try {
-            let response = await axios.get('http://localhost:3001/api/holding', {
-                withCredentials: true,
-            })
+            let response = await API.componentPortfolioChartHolding()
             // console.log(response.data.data)
             let holdingList = response.data.data
             console.log(holdingList)
@@ -67,9 +68,7 @@ const Dash = props => {
         let listOfCryptos = await holdingList.map(holding => holding.coin)
         let stringifyListOfCryptos = listOfCryptos.toString()
         console.log(stringifyListOfCryptos)
-        let response = await axios.get('http://localhost:3001/api/cryptocompare/oneprice?coin=' + String(stringifyListOfCryptos) + '&currency=' + String("USD"), {
-            withCredentials: true,
-        })
+        let response = await API.portfolioHoldingOnePrice(stringifyListOfCryptos,"USD")
         console.log(response.data.DISPLAY)
         let listOfPrices = listOfCryptos.map(crypto => {
             console.log(response.data.DISPLAY[crypto]["USD"].PRICE)
