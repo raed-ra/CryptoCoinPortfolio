@@ -4,7 +4,7 @@ const whitelist = [
     // config.appUrl,
     "*",
     "https://crypto-coins-portfolio.herokuapp.com",
-    "https://crypto-coins-portfolio.herokuapp.com/Login",
+    "https://crypto-coins-portfolio.herokuapp.com/login",
     "http://localhost:3000",
     "localhost:3000",
     "https://min-api.cryptocompare.com/data/",

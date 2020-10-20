@@ -19,10 +19,10 @@ function App() {
       <Router>
         <Switch>
           <CryptoProvider>
-            <Route exact path={['/Login']} component={Login} />
-            <Route exact path={['/', '/Home']} component={Home} />
-            <Route exact path={['/Register']} component={Register} />
-            <Route exact path={['/Portfolio']} component={Portfolio} />
+            <Route exact path={['/login']} component={Login} />
+            <Route exact path={['/', '/home']} component={Home} />
+            <Route exact path={['/register']} component={Register} />
+            <Route exact path={['/portfolio']} component={Portfolio} />
             {/* <Route exact path={['/AssetDiagram']} component={AssetDiagram} /> */}
             {/* <Route exact path={['/Game']} component={Game} /> */}
             <Route component={NoMatch} />
