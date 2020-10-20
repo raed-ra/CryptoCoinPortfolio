@@ -28,11 +28,10 @@ function HomeTable() {
     const fetchcoin = async (page, limit) => {
         try {
             let response = await API.hometableCryptoData(page, limit)
-
             setData(response.data.Data)
             let priceInfo = {};
             response.data.Data.forEach((coin) => {
-                priceInfo[coin.CoinInfo.Name] = parseFloat((coin.DISPLAY.USD.PRICE).slice(1));
+                priceInfo[coin.CoinInfo.Name] = (coin.RAW.USD.PRICE);
 
             })
             setPrice(priceInfo)
@@ -47,26 +46,27 @@ function HomeTable() {
             ccStreamer.current.onmessage = function onStreamMessage(event) {
                 console.log({ event })
                 let message = JSON.parse(event.data);
-                // console.log(message)
+                console.log(message)
                 let priceInfo2 = { ...priceInfo }
-                let newVar
+                console.log(priceInfo2);
+                let oldPrice
                 let variant = {}
                 let newPrice = "NAN"
-                if (message.price !== "") {
+                if (message.PRICE !== "") {
                     newPrice = message.PRICE
                     if (priceInfo[message.FROMSYMBOL] !== undefined) {
-                        newVar = priceInfo[message.FROMSYMBOL]
+                        oldPrice = priceInfo[message.FROMSYMBOL]
                     }
                     variant[message.FROMSYMBOL] = ""
-                    if (newVar > parseFloat(newPrice)) {
+                    if (oldPrice < newPrice) {
                         variant[message.FROMSYMBOL] = "table-success"
                     }
-                    if (newVar < parseFloat(newPrice)) {
+                    if (oldPrice > newPrice) {
                         variant[message.FROMSYMBOL] = "table-danger"
                     }
                 }
-                priceInfo2[message.FROMSYMBOL] = newPrice
-                setPrice(priceInfo2)
+                priceInfo[message.FROMSYMBOL] = newPrice
+                setPrice(priceInfo)
                 setVariant(variant)
             }
         } catch (err) {
@@ -133,7 +133,7 @@ function HomeTable() {
                             <td className="align-middle">{pageLimit * page + index + 1}</td>
                             <td className="align-middle"><img className="image" width="25" height="15" src={`https://cryptocompare.com${row.RAW.USD.IMAGEURL}`} />{"  " + row.CoinInfo.FullName}</td>
                             {/* <td className="align-middle">{row.DISPLAY.USD.PRICE}</td> */}
-                            <td className={`${variant[row.CoinInfo.Name]} align-middle`}>{price[row.CoinInfo.Name]}</td>
+                            <td className={`${variant[row.CoinInfo.Name]} align-middle`}> $ {price[row.CoinInfo.Name]}</td>
                             <td className="align-middle">{row.DISPLAY.USD.MKTCAP}</td>
                             <td className="align-middle">{row.CoinInfo.Rating.Weiss.Rating}</td>
                             <td className="align-middle" className="canvas-container"><Chart index={row.CoinInfo.Internal} /></td>

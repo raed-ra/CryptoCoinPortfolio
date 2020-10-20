@@ -25,7 +25,7 @@ function App() {
             <Route exact path={['/portfolio']} component={Portfolio} />
             {/* <Route exact path={['/AssetDiagram']} component={AssetDiagram} /> */}
             {/* <Route exact path={['/Game']} component={Game} /> */}
-            <Route component={NoMatch} />
+            {/* <Route component={NoMatch} /> */}
           </CryptoProvider>
         </Switch>
       </Router>
