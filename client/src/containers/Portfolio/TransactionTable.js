@@ -71,7 +71,7 @@ function PortfolioTable(props) {
     useEffect( () => {
         fetchcoinDatabase()
     }, [])
-
+    console.log(transaction)
     console.log(currentTransaction)
     return (
         <>

@@ -103,9 +103,24 @@ export default {
         }
     },
 
+    componentEditModal: async (load) => {
+        try {
+            console.log(load);
+            const url = baseURL + '/api/transactions/edtcoin'
+            console.log(url);
+            return axios.patch(url, load, {
+                withCredentials: true,
+            })
+        } catch (err) {
+            if (err.response.status === 401) {
+            }
+        }
+    },
+
     componentAddModal: async (payload) => {
         try {
             const url = baseURL + '/api/transactions/addcoin'
+            console.log(url);
             return axios.post(url, payload, {
                 withCredentials: true,
             })
@@ -115,17 +130,7 @@ export default {
         }
     },
 
-    componentEditModal: async (payload) => {
-        try {
-            const url = baseURL + '/api/transactions/editcoin'
-            return axios.update(url, payload, {
-                withCredentials: true,
-            })
-        } catch (err) {
-            if (err.response.status === 401) {
-            }
-        }
-    },
+
 
     componentPortfolioChartHolding: async () => {
         try {
@@ -138,6 +143,5 @@ export default {
             }
         }
     },
-
 
 }

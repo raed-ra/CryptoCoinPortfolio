@@ -19,7 +19,7 @@ function ModalAddCoin(props) {
     return startDate!=="" && currency!=="" && buyPrice!=="" && quantity!=="" && coin!=="";
   }
 
-  async function handleSubmit(event) {
+  async function handleAddSubmit(event) {
     event.preventDefault();
     console.log(startDate)
     let payload={coin,quantity,buyPrice,currency,startDate}
@@ -43,7 +43,7 @@ function ModalAddCoin(props) {
       </Modal.Header>
       <Modal.Body className="show-grid">
         <Container>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleAddSubmit}>
             <Form.Row>
               <Form.Group as={Col} controlId="formGridCoin">
                 <Form.Label>Coin</Form.Label>

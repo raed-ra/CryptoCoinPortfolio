@@ -7,7 +7,6 @@ let APIKey = process.env.CRYPTO_API_KEY;
 
 router.get("/cryptocompare/table", async (req, res) => {
     try {
-
         let limit = 10;
         let page = req.query.page;
         let currency = "USD";

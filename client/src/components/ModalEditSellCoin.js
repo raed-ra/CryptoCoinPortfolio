@@ -8,20 +8,23 @@ import API from './../utils/API'
 function ModalEditSellCoin(props) {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [id, setId] = useState()
   const [coin, setCoin] = useState()
   const [sellPrice, setSellPrice] = useState()
   const [quantity, setQuantity] = useState()
   const [currency, setCurrency] = useState()
   const [startDate, setStartDate] = useState()
+  const [changeSellPrice, setChangeSellPrice] = useState()
+  const [changeQuantity, setChangeQuantity] = useState()
 
 
   function validateForm() {
     return startDate !== "" && currency !== "" && sellPrice !== "" && quantity !== "" && coin !== "";
   }
 
-  async function handleSubmit(event) {
+  async function handleEditSubmit(event) {
     event.preventDefault();
-    let payload = { coin, quantity, sellPrice, currency, startDate }
+    let payload = { id, coin, quantity, sellPrice, currency, startDate, changeQuantity, changeSellPrice }
     setIsLoading(true);
     console.log(payload)
     try {
@@ -61,12 +64,16 @@ function ModalEditSellCoin(props) {
       }
     } else {
       helperVar = props.data[0]
+      console.log(helperVar.quantity);
       setCoin(helperVar.coin)
       setQuantity(helperVar.quantity)
       setSellPrice(helperVar.buyPrice)
       setCurrency(helperVar.currency)
       let time = parseISO(helperVar.startDate)
+      setId(helperVar.id)
       setStartDate(time)
+      setChangeSellPrice(0) 
+      setChangeQuantity(0) 
     }
   }, [props])
 
@@ -80,7 +87,7 @@ function ModalEditSellCoin(props) {
       </Modal.Header>
       <Modal.Body className="show-grid">
         <Container>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleEditSubmit}>
             <Form.Row>
               <Form.Group as={Col} controlId="formGridCoin">
                 <Form.Label>Coin</Form.Label>
@@ -98,7 +105,12 @@ function ModalEditSellCoin(props) {
                   type="number"
                   placeholder="Quantity"
                   value={quantity}
-                  onChange={e => setQuantity(e.target.value)}
+                  onChange={e => {
+                    setQuantity(parseFloat(e.target.value));
+                    let intermediateVar = props.data[0];
+                    let quantityChange = intermediateVar.quantity - e.target.value;
+                    setChangeQuantity(quantityChange) 
+                  }}
                 />
               </Form.Group>
             </Form.Row>
@@ -110,7 +122,15 @@ function ModalEditSellCoin(props) {
                   type="number"
                   placeholder="Sell Price"
                   value={sellPrice}
-                  onChange={e => setSellPrice(e.target.value)}
+                  onChange={e => {
+                    setSellPrice(parseFloat(e.target.value));
+                    let intermediateVar = props.data[0];
+                    console.log(intermediateVar);
+                    console.log(intermediateVar.buyPrice);
+                    console.log(e.target.value);
+                    let priceChange = intermediateVar.buyPrice - e.target.value;
+                    setChangeSellPrice(priceChange) 
+                  }}
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
