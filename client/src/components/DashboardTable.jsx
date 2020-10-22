@@ -61,10 +61,10 @@ function DashboardTable({data, onRowEdit, chartSelectCoin, tableType}) {
                                     />
                                 </Button> : ""} 
                             </td>
-                            <td className="align-middle">${row.currentPrice}</td>
-                            <td className="align-middle">${row.totalValue}</td>
-                            <td className="align-middle">${row.profitLoss}</td>
-                            <td className="align-middle">{row.change}%</td>
+                            <td className="align-middle">${row.currentPrice.toLocaleString()}</td>
+                            <td className="align-middle">${row.totalValue.toLocaleString()}</td>
+                            <td className="align-middle">${row.profitLoss.toLocaleString()}</td>
+                            <td className="align-middle">{row.change.toLocaleString()}%</td>
                         </tr>
                     ))}
                 </tbody>

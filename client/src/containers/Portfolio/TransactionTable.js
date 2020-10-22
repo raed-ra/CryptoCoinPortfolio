@@ -39,16 +39,18 @@ function PortfolioTable(props) {
             let response = await API.portfolioTransactionsDatabase()
             console.log(response.data.data)
             let transactionListp1 = response.data.data
-            // console.log(transactionListp1)
+            console.log(transactionListp1)
 
 
             const anAsyncFunction = async (coin) => {
                 let transactionListp2 = await fetchCryptoLogoPrice(coin.coin, coin.currency)
+                console.log(transactionListp2);
                 let rawData = { ...coin, ...transactionListp2 }
-                let initialCost = (rawData.buyPrice * rawData.quantity).toFixed(2);
-                let totalValue = (rawData.currentPrice * rawData.quantity).toFixed(2);
-                let profitLoss = (totalValue - initialCost).toFixed(2);
-                let change = ((profitLoss / initialCost) * 100).toFixed(0);
+                console.log(rawData);
+                let initialCost = Math.round( (rawData.buyPrice * rawData.quantity) * 1e2 ) / 1e2;
+                let totalValue = Math.round( (rawData.currentPrice * rawData.quantity) * 1e2 ) / 1e2;  
+                let profitLoss = Math.round( (totalValue - initialCost) * 1e2 ) / 1e2;  
+                let change = Math.round( ((profitLoss / initialCost) * 100) * 1e2 ) / 1e2;
                 return { ...coin, ...transactionListp2, initialCost, totalValue, profitLoss, change }
             }
 
@@ -71,7 +73,7 @@ function PortfolioTable(props) {
     useEffect( () => {
         fetchcoinDatabase()
     }, [])
-
+    console.log(transaction)
     console.log(currentTransaction)
     return (
         <>

@@ -14,7 +14,6 @@ const PORT = process.env.PORT || 3001;
 const compression = require('compression')
 const app = express();
 
-
 //use compression 
 app.use(compression({}))
 
@@ -24,6 +23,7 @@ connectDb();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser(process.env.SESSION_SECRET));
+
 
 
 // Serve up static assets (usually on heroku)
@@ -50,16 +50,26 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors(corsConfig));
+// app.get('*', cors(corsOptions), function (req, res, next) {
+//   res.json({msg: 'This is CORS-enabled for only example.com.'})
+// })
+
 // Define API routes here
 app.use('/api',  routes);
 
-app.use(cors());
+
 
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
+
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

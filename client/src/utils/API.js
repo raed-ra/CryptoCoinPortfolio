@@ -9,7 +9,7 @@ export default {
     hometableCryptoData: async (page, limit) => {
         try {
             const url = baseURL + '/api/cryptocompare/table?page=' + String(page)
-            return axios.get(url, { withCredentials: true })
+            return await axios.get(url, { withCredentials: true })
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -20,7 +20,7 @@ export default {
         try {
             const url = baseURL + '/api/cryptocompare/news'
             console.log(url);
-            return axios.get(url, { withCredentials: true })
+            return await axios.get(url, { withCredentials: true })
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -31,7 +31,7 @@ export default {
         try {
             const url = baseURL + '/api/login'
             console.log(url);
-            return axios.post(url, {
+            return await axios.post(url, {
                 email: payload.email,
                 password: payload.password,
             },
@@ -64,7 +64,7 @@ export default {
     portfolioHoldingOnePrice: async (coin, currency) => {
         try {
             const url = baseURL + '/api/cryptocompare/oneprice?coin=' + String(coin) + '&currency=' + String(currency)
-            return axios.get(url, { withCredentials: true })
+            return await axios.get(url, { withCredentials: true })
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -74,7 +74,7 @@ export default {
     portfolioHoldingsDatabase: async () => {
         try {
             const url = baseURL + '/api/holding'
-            return axios.get(url, { withCredentials: true })
+            return await axios.get(url, { withCredentials: true })
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -84,7 +84,7 @@ export default {
     portfolioTransactionsDatabase: async () => {
         try {
             const url = baseURL + '/api/transactions/addcoin'
-            return axios.get(url, { withCredentials: true })
+            return await axios.get(url, { withCredentials: true })
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -94,9 +94,25 @@ export default {
     componentChart: async (index) => {
         try {
             const url = baseURL + '/api/cryptocompare/chart'
-            return axios.post(url, { index }, {
+            return await axios.post(url, { index }, {
                 withCredentials: true,
             })
+        } catch (err) {
+            if (err.response.status === 401) {
+            }
+        }
+    },
+
+    componentEditModal: async (load) => {
+        try {
+            console.log(load);
+            const url = baseURL + '/api/transactions/edtcoin'
+            console.log(url);
+            let responseFromServer = await axios.patch(url, load, {
+                withCredentials: true,
+            })
+            console.log(responseFromServer);
+            return responseFromServer
         } catch (err) {
             if (err.response.status === 401) {
             }
@@ -106,7 +122,8 @@ export default {
     componentAddModal: async (payload) => {
         try {
             const url = baseURL + '/api/transactions/addcoin'
-            return axios.post(url, payload, {
+            console.log(payload);
+            return await axios.post(url, payload, {
                 withCredentials: true,
             })
         } catch (err) {
@@ -115,22 +132,12 @@ export default {
         }
     },
 
-    componentEditModal: async (payload) => {
-        try {
-            const url = baseURL + '/api/transactions/editcoin'
-            return axios.update(url, payload, {
-                withCredentials: true,
-            })
-        } catch (err) {
-            if (err.response.status === 401) {
-            }
-        }
-    },
+
 
     componentPortfolioChartHolding: async () => {
         try {
             const url = baseURL + '/api/holding'
-            return axios.get(url, {
+            return await axios.get(url, {
                 withCredentials: true,
             })
         } catch (err) {
@@ -138,6 +145,5 @@ export default {
             }
         }
     },
-
 
 }

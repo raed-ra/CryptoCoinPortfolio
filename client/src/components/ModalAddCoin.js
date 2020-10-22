@@ -19,13 +19,14 @@ function ModalAddCoin(props) {
     return startDate!=="" && currency!=="" && buyPrice!=="" && quantity!=="" && coin!=="";
   }
 
-  async function handleSubmit(event) {
+  async function handleAddSubmit(event) {
     event.preventDefault();
     console.log(startDate)
     let payload={coin,quantity,buyPrice,currency,startDate}
     setIsLoading(true);
  
     try {
+      console.log(payload);
       let response = await API.componentAddModal(payload)
       console.log("Posted transaction:" + response)
       props.submitted()
@@ -43,7 +44,7 @@ function ModalAddCoin(props) {
       </Modal.Header>
       <Modal.Body className="show-grid">
         <Container>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleAddSubmit}>
             <Form.Row>
               <Form.Group as={Col} controlId="formGridCoin">
                 <Form.Label>Coin</Form.Label>

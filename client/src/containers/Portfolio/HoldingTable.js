@@ -36,7 +36,9 @@ function HoldingTable(props) {
             const anAsyncFunction = async (coin) => {
                 let holdingListp2 = await fetchCryptoLogoPrice(coin.coin, coin.currency)
                 let rawData = { ...coin, ...holdingListp2 }
-                let initialCost = (rawData.holding_quantity_current * rawData.holding_quantity_current).toFixed(2);
+                console.log(rawData);
+                let initialCost = (rawData.holding_quantity_current * rawData.holding_average_cost).toFixed(2);
+                console.log(initialCost);
                 let totalValue = (rawData.currentPrice * rawData.holding_quantity_current).toFixed(2);
                 let profitLoss = (totalValue - initialCost).toFixed(2);
                 let change = ((profitLoss / initialCost) * 100).toFixed(0);
