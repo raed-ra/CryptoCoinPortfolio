@@ -14,6 +14,7 @@ router.get("/transactions/addcoin", (req, res) => {
 
 
 router.patch("/transactions/edtcoin", async (req, res) => {
+
     console.log(req.body)
     try {
         let query = {
@@ -85,6 +86,7 @@ router.patch("/transactions/edtcoin", async (req, res) => {
     }
 });
 
+
 router.post("/transactions/addcoin", async (req, res) => {
     // console.log(req.body)
     try {
@@ -123,6 +125,7 @@ router.post("/transactions/addcoin", async (req, res) => {
             console.log("2" + req.body.quantity)
             console.log("3" + holding.holding_average_cost)
             console.log("4" + req.body.buyPrice)
+
 
 
             let holding_quantity_current = parseFloat(holding.holding_quantity_current) + parseFloat(req.body.quantity);

@@ -108,6 +108,7 @@ export default {
             console.log(load);
             const url = baseURL + '/api/transactions/edtcoin'
             console.log(url);
+
             let responseFromServer = await axios.patch(url, load, {
                 withCredentials: true,
             })
