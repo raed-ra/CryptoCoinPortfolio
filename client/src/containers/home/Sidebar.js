@@ -17,35 +17,35 @@ function Sidebar() {
             console.log(response)
             setNews(response.data.Data.slice(14))
         } catch (err) {
-        if (err.response.status === 401) {
+            if (err.response.status === 401) {
+            }
         }
     }
-}
-// call post api to load all the data in page
-useEffect(() => {
-    fetchnews()
-}, [])
+    // call post api to load all the data in page
+    useEffect(() => {
+        fetchnews()
+    }, [])
 
-return (
-    <Container style={{ pading: 2 }}>
-        <Row>.</Row> <Row>.</Row> <Row>.</Row> <Row>.</Row>
+    return (
+        <div>
+            <Row>.</Row> <Row>.</Row> <Row>.</Row> <Row>.</Row>
 
-        {news.map((newsItem) => (
-            <Row key={newsItem.id}>
-                <Col xs={3}></Col>
-                <Col className="align-middle" xs={6}>
-                    <Row><img className="image" width="150" height="150" href={`${newsItem.guid}`} src={`${newsItem.imageurl}`} /></Row>
-                    <Row>News Headlines:</Row><Row><a href={`${newsItem.guid}`}>{newsItem.title}</a></Row>
-                    <Row>Published Date:<a href={`${newsItem.guid}`}>{moment.tz(newsItem.published_on, "Australia/Perth").format('YYYY-MM-DD')}</a></Row>
-                </Col>
-                <Col xs={3}></Col>
-            </Row>
-        ))}
-        <Row>.</Row>
-        <Row>.</Row>
-        <Row>.</Row>
-    </Container>
-);
+            {news.map((newsItem) => (
+                <Row key={newsItem.id}>
+                    <Col xs={3}></Col>
+                    <Col className="align-middle" xs={6}>
+                        <Row><img className="image" width="210" height="210" href={`${newsItem.guid}`} src={`${newsItem.imageurl}`} /></Row>
+                        <Row>News Headlines:</Row><Row><a href={`${newsItem.guid}`}>{newsItem.title}</a></Row>
+                        <Row>Published Date:<a href={`${newsItem.guid}`}>{moment.tz(newsItem.published_on, "Australia/Perth").format('YYYY-MM-DD')}</a></Row>
+                    </Col>
+                    <Col xs={3}></Col>
+                </Row>
+            ))}
+            <Row>.</Row>
+            <Row>.</Row>
+            <Row>.</Row>
+        </div>
+    );
 };
 
 export default Sidebar
