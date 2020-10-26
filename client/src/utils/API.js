@@ -61,6 +61,19 @@ export default {
         }
     },
 
+    logout: async () => {
+        try {
+            const url = baseURL + '/api/logout'
+            console.log(url);
+            return axios.get(url, {
+                withCredentials: true
+            })
+        } catch (err) {
+            if (err.response.status === 401) {
+            }
+        }
+    },
+
     portfolioHoldingOnePrice: async (coin, currency) => {
         try {
             const url = baseURL + '/api/cryptocompare/oneprice?coin=' + String(coin) + '&currency=' + String(currency)

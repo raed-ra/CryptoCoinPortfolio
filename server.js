@@ -50,7 +50,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(cors(corsConfig));
+app.use(cors(corsConfig));
 // app.get('*', cors(corsOptions), function (req, res, next) {
 //   res.json({msg: 'This is CORS-enabled for only example.com.'})
 // })
