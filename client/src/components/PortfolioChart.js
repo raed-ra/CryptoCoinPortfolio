@@ -72,10 +72,18 @@ function PortfolioChart(props) {
                 data[i].profitLossValue = data[i].closingValue.map((item, index) => {
                     return item - profitLossArray[index]
                 })
+                console.log(data);
+                console.log(profitLossArray);
                 maxProfitForEachCoin.push(Math.max(...data[i].profitLossValue))
-                bestCryptoCoinArray.push(data[i].finalClosingValue - data[i].holding_average_cost)
+                bestCryptoCoinArray.push((data[i].finalClosingValue - data[i].holding_average_cost)/data[i].holding_average_cost)
                 mostProfitableArray.push(data[i].profitLossValue[data[i].profitLossValue.length - 1])
             }
+            //Highest profit any coin had ever (historic best of the coin)
+            console.log(maxProfitForEachCoin);
+            //Best coin based on cost vs current price / Quantity does not affect it
+            console.log(bestCryptoCoinArray);
+            //Best coin based on cost considering holding quanity 
+            console.log(mostProfitableArray);
             let mostProfitableCoin = data[mostProfitableArray.indexOf(Math.max(...mostProfitableArray))].coin
             console.log((Math.max(...mostProfitableArray)));
             console.log(mostProfitableCoin);

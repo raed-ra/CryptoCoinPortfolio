@@ -10,11 +10,6 @@ const holdingSchema = new Schema(
         holding_average_cost: { type: Number, required: true}, 
     },
 
-
-
-
-
-
     {
         timestamps: true,
         toJSON: {

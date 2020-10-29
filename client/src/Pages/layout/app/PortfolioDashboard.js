@@ -93,10 +93,10 @@ const Dash = props => {
 
         //------------------------------
 
-        let totalAcquistionCost = 0;
-        for (var i = 0; i < totalHoldingArray.length; i++) {
-            totalAcquistionCost += totalHoldingArray[i] * totalHoldingCoinCost[i];
-        }
+        let totalAcquistionCost = totalHoldingCoinCost.reduce((a, b) => a + b, 0)
+        // for (var i = 0; i < totalHoldingArray.length; i++) {
+        //     totalAcquistionCost += totalHoldingArray[i] * totalHoldingCoinCost[i];
+        // }
         console.log(totalAcquistionCost)
         setAcquisitionCost(totalAcquistionCost)
 

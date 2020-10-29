@@ -100,7 +100,7 @@ function ModalEditSellCoin(props) {
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridQuantity">
-                <Form.Label>Sell quantity</Form.Label>
+                <Form.Label>New quantity</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Quantity"
@@ -118,7 +118,7 @@ function ModalEditSellCoin(props) {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridCity">
-                <Form.Label>Sell Price</Form.Label>
+                <Form.Label>New Price</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Sell Price"
@@ -135,7 +135,7 @@ function ModalEditSellCoin(props) {
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridZip">
-                <Form.Label>Sell Currency</Form.Label>
+                <Form.Label>Updated Currency</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Currency of sold value"
@@ -159,7 +159,7 @@ function ModalEditSellCoin(props) {
             // isLoading={isLoading}
             // disabled={!validateForm()}
             >
-              Sell - Update Portfolio
+               Update Portfolio
         </Button>
 
             {/* <Button variant="primary" type="submit">
