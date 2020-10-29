@@ -49,7 +49,7 @@ router.patch("/transactions/edtcoin", async (req, res) => {
         const holding = await db.Holding.findOne(query1);
         console.log(holding)
         let OldQuantityTransaction = parseFloat(req.body.quantity) - parseFloat(req.body.changeQuantity);
-        let OldPriceTransaction = parseFloat(req.body.sellPrice) - parseFloat(req.body.changeSellPrice);
+        let OldPriceTransaction = parseFloat(req.body.sellPrice) + parseFloat(req.body.changeSellPrice);
         let Num1 = parseFloat(holding.holding_average_cost) * parseFloat(holding.holding_quantity_current);
         console.log(Num1)
         let Num2 = parseFloat(OldQuantityTransaction) * parseFloat(OldPriceTransaction);
