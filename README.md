@@ -1,4 +1,5 @@
 [![Header](../Template1/client/src/assets/coins-readme.jpg "Header")](https://some-url.dev/)
+[![Header](https://raw.githubusercontent.com/MartinHeinz/<OWNER>/<OWNER>/readme_header.png "Header")](https://some-url.dev/)
 
 
 ## CryptoCurrency Portfolio Tracker

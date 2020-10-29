@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
   render() {
     const { isLogginActive } = this.state;
     // console.log(isLogginActive);
-    const current = isLogginActive ? "Register" : "Login";
+    const current = isLogginActive ? "New User?" : "Login";
     // console.log(current);
     const currentActive = isLogginActive ? "login" : "register";
     // console.log(currentActive);
