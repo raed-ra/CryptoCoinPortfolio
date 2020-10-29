@@ -1,4 +1,6 @@
-[![Header](../Template1/client/src/assets/coins-readme.jpg "Header")](https://github.com/raed-ra/CryptoCoinPortfolio/blob/master/client/src/assets/coins-readme.jpg)
+[![Header](https://github.com/raed-ra/CryptoCoinPortfolio/blob/master/client/src/assets/coins-readme.jpg "Header")](https://some-url.dev/)
+
+
 
 
 ## CryptoCurrency Portfolio Tracker
