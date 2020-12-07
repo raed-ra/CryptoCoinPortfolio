@@ -1,8 +1,26 @@
-# Create React Express App
+[![Header](../Template1/client/src/assets/coins-readme.jpg "Header")](https://some-url.dev/)
+[![Header](https://raw.githubusercontent.com/MartinHeinz/<OWNER>/<OWNER>/readme_header.png "Header")](https://some-url.dev/)
 
-## About This Boilerplate
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+## CryptoCurrency Portfolio Tracker
+
+This application enables cryptocurrency traders to track the performance of their individual or total crypto holdings. 
+
+## Technologies USED
+
+![](https://img.shields.io/badge/<Stack>-<MERN>-informational?style=flat&logo=<LOGO_NAME>&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/<Code>-<JavaScipt>-informational?style=flat&logo=<LOGO_NAME>&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/<DB>-<MONGO>-informational?style=flat&logo=<LOGO_NAME>&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/<ODM>-<MONGOOSE>-informational?style=flat&logo=<LOGO_NAME>&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/<WEBServer>-<NodeJS>-informational?style=flat&logo=<LOGO_NAME>&logoColor=white&color=2bbc8a)
+
+
+
+
+
+
+## Features: 
+Node/Express/React app which can be easily deployed.
 
 The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
 

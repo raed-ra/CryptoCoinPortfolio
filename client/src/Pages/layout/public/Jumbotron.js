@@ -8,7 +8,7 @@ const Styles = styled.div`
     .jumbo {
         background: url(${background}) no-repeat fixed bottom;
         background-size: cover;
-        color: #efefef;
+        color: rgb(255, 255, 255);
         innerHeight: 200px;
         position: relative;
         z-index:-2;
@@ -24,6 +24,14 @@ const Styles = styled.div`
         bottom: 0;
         right: 0;
         z-index: -1;
+    }
+
+    h1 {
+        font-size: 80px;
+    }
+
+    p {
+        font-size: 30px;
     }
     `;
 
